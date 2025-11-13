@@ -1,0 +1,40 @@
+import { useQuery } from "@tanstack/react-query"
+import { useInfiniteQuery } from "@tanstack/react-query"
+import axios from '../config/axios.js'
+import API_URI from "../config/backend"
+
+
+const fetchMessages = async ({ pageParam = 1, queryKey }) => {
+  const [_key, chatId] = queryKey
+  const { data } = await axios.get(`${API_URI}/messages/${chatId}?page=${pageParam}&limit=20`, {
+    withCredentials: true,
+  })
+  return data 
+}
+
+export default function useGetMessages(chatId) {
+  return useInfiniteQuery({
+    queryKey: ["messages", chatId],
+    queryFn: fetchMessages,
+    enabled: !!chatId,
+    getNextPageParam: (lastPage, allPages) => {
+      if (lastPage.hasMore) return allPages.length + 1
+      return undefined 
+    },
+    retry: false,
+    refetchOnWindowFocus: false,
+    staleTime: 1000 * 60,
+  })
+}
+
+export const useGetAllMessages = () => {
+  return useQuery({
+    queryKey: ["allMessages"],
+    queryFn: async () => {
+      const { data } = await axios.get(`${API_URI}/messages/all`, { withCredentials: true })
+      return data
+    },
+    retry: false,
+    refetchOnWindowFocus: false,
+  })
+}
