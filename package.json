@@ -8,9 +8,6 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "rewrites": [
-      { "source": "/(.*)", "destination": "/" }
-    ]
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.9.0",
