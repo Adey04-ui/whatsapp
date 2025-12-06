@@ -178,7 +178,7 @@ function Chats({ showChats, setShowChats, setShowusers }) {
                 onClick={() => handleSelectChat(chat)}
               >
                 <img src={recipientProfilePic} alt="" className="profilepicture" />
-                <div style={{width: '100%'}}>
+                <div style={{width: '100%', overflow: 'hidden'}}>
                   <span className="user-name-userscomp">
                     <span style={{overflow: 'hidden', textWrap: 'nowrap'}}>{recipientName}</span>
                     {chat.latestMessage && (
@@ -187,7 +187,7 @@ function Chats({ showChats, setShowChats, setShowusers }) {
                       </span>
                     )}
                   </span>
-                  <div style={{display: 'flex', justifyContent: 'space-between', paddingRight: '12px',}}>
+                  <div style={{display: 'flex', justifyContent: 'space-between', paddingRight: '12px', overflow: 'hidden', textWrap: 'nowrap'}}>
                     {chat.latestMessage ? 
                     (
                         <span className="user-email-userscomp">

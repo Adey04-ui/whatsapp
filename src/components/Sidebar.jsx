@@ -3,13 +3,15 @@ import { BiChat, BiMessage } from 'react-icons/bi'
 import {BsPerson, BsPersonAdd, BsPhone, BsTelephone} from 'react-icons/bs'
 import { FaInfoCircle } from 'react-icons/fa'
 import { useLogout } from '../hooks/useLogout'
+import { useSelector } from 'react-redux'
 
 function Sidebar({controlTab, setControlTab}) {
 
   const { mutate: logout, isLoading } = useLogout()
+  const selectedChat = useSelector((state)=> state.chats.selectedChat)
 
   return (
-    <div className='sidebar'>
+    <div className={`sidebar ${selectedChat != null ? "off" : ""}`}>
       <div className="tabcontrols">
         <ul className="tabcontrols2">
           <li 
