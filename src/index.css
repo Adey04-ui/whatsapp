@@ -735,7 +735,7 @@ input[type="search"]:focus{
     background: #295d42;
   }
   .auth {
-    height: calc(100vh - 40px);
+    height: calc(100dvh - 40px);
     display: flex;
     place-items: center;
     width: 100%;
@@ -889,7 +889,7 @@ input[type="search"]:focus{
     border-left: 1px solid #383838;
     justify-content: center;
     place-items: center;
-    height: calc(100vh - 40px);
+    height: calc(100dvh - 40px);
     display: none;
   }
   .chatpreview2 {
@@ -918,7 +918,7 @@ input[type="search"]:focus{
     color: #999999;
   }
   .messagesection {
-    height: calc(100vh - 45px);
+    height: calc(100dvh - 45px);
     width: 100%;
     display: flex;
     flex-direction: column;
