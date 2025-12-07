@@ -788,7 +788,6 @@ input[type="search"]:focus{
     background: #2c2c2c;
     transition: width .4s ease-in-out;
     overflow-x: hidden;
-    overflow-y: auto;
     height: calc(100%);
   }
   .chatsection.active {
