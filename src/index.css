@@ -628,12 +628,12 @@ input[type="search"]:focus{
     display: flex;
     flex-direction: column;
     margin-left: 0px;
-    margin-bottom: 14px;
+    margin-bottom: 0px;
     border-radius: 5px;
     cursor: pointer;
     color: #a02626;
     place-items: center;
-    margin-right: 10px;
+    margin-right: 0px;
     justify-content: center;
   }
   .logout:hover {
@@ -794,9 +794,10 @@ input[type="search"]:focus{
   }
   .tabselector-chat {
     width: 100%;
-    height: calc(100% - 80px - 20px);
+    height: calc(100% - 100px - 20px);
     margin: 0px 7px;
     display: block;
+    overflow-x: hidden;
   }
   .tabselector-chat.notactive {
     display: none;
