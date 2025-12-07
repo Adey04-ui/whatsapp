@@ -606,6 +606,7 @@ input[type="search"]:focus{
     display: flex;
     min-height: calc(100vh - 120px - 60px);
     overflow-x: hidden;
+    overflow-y: auto;
   }
   ul.tabcontrols2 {
     padding: 7px 10px;
@@ -787,6 +788,7 @@ input[type="search"]:focus{
     background: #2c2c2c;
     transition: width .4s ease-in-out;
     overflow-x: hidden;
+    overflow-y: auto;
     height: calc(100%);
   }
   .chatsection.active {
@@ -798,6 +800,7 @@ input[type="search"]:focus{
     margin: 0px 7px;
     display: block;
     overflow-x: hidden;
+    overflow-y: auto;
   }
   .tabselector-chat.notactive {
     display: none;
