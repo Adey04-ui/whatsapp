@@ -605,7 +605,7 @@ input[type="search"]:focus{
   .fullcontainer {
     display: flex;
     min-height: calc(100vh - 120px - 60px);
-    overflow: hidden;
+    overflow-x: hidden;
   }
   ul.tabcontrols2 {
     padding: 7px 10px;
@@ -786,7 +786,7 @@ input[type="search"]:focus{
     border-radius: 13px;
     background: #2c2c2c;
     transition: width .4s ease-in-out;
-    overflow: hidden;
+    overflow-x: hidden;
     height: calc(100%);
   }
   .chatsection.active {
