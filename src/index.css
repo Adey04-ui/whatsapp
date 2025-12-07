@@ -579,6 +579,9 @@ input[type="search"]:focus{
 }
 
 @media screen and (max-width: 576px) {
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
   .topbarlogo {
     height: 25px;
     padding-right: 7px;
