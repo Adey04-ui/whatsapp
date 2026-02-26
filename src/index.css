@@ -97,7 +97,7 @@ ul.tabcontrols2 > li.tabcontrol.active {
   border-top-left-radius: 2px;
 }
  .login > .login {
-  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 10px 20px #00000033;
   padding: 20px 23px;
   width: 450px;
   padding-top: 60px;

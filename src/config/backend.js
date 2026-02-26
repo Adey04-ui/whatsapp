@@ -1,6 +1,6 @@
-const API_URI = 'https://whatsapp-backend-tamk.onrender.com/api'
+const API_URI = 'https://mock-backend-mjwh.onrender.com/api'
 
-const BASE_URI = 'https://whatsapp-backend-tamk.onrender.com/'
+const BASE_URI = 'https://mock-backend-mjwh.onrender.com/'
 
 export {BASE_URI}
 

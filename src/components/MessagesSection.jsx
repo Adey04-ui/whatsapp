@@ -49,11 +49,11 @@ function groupMessagesByDate(messages) {
 
 function MessagesSection() {
 
-  const {selectedChat} = useSelector((state) => state.chats)
-  const {user} = useSelector((state) => state.user)
+  const { selectedChat } = useSelector((state) => state.chats)
+  const { user } = useSelector((state) => state.user)
   const loggedInUser = user._id
   const dispatch = useDispatch()
-  
+
   const [options, setOptions] = useState(false)
 
   const chatContainerRef = useRef(null)
@@ -88,61 +88,61 @@ function MessagesSection() {
   const chatId = selectedChat?._id
 
   const {
-  data,
-  isLoading,
-  fetchNextPage,
-  hasNextPage,
-  isFetchingNextPage,
-} = useGetMessages(chatId)
-  const {mutate: sendMessage} = useSendMessage()
+    data,
+    isLoading,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+  } = useGetMessages(chatId)
+  const { mutate: sendMessage } = useSendMessage()
 
 
-  
+
   // scroll messages to the bottom
   useEffect(() => {
-  const container = chatContainerRef.current
-  if (!container) return
+    const container = chatContainerRef.current
+    if (!container) return
 
-  const handleScroll = () => {
-    const distanceFromBottom =
-      container.scrollHeight - container.scrollTop - container.clientHeight
-    setShowScrollButton(distanceFromBottom > 100)
+    const handleScroll = () => {
+      const distanceFromBottom =
+        container.scrollHeight - container.scrollTop - container.clientHeight
+      setShowScrollButton(distanceFromBottom > 100)
 
-    if (container.scrollTop === 0 && hasNextPage && !isFetchingNextPage) {
-      const oldScrollHeight = container.scrollHeight
-      fetchNextPage().then(() => {
-        requestAnimationFrame(() => {
-          container.scrollTop = container.scrollHeight - oldScrollHeight
+      if (container.scrollTop === 0 && hasNextPage && !isFetchingNextPage) {
+        const oldScrollHeight = container.scrollHeight
+        fetchNextPage().then(() => {
+          requestAnimationFrame(() => {
+            container.scrollTop = container.scrollHeight - oldScrollHeight
+          })
         })
-      })
+      }
     }
-  }
 
-  container.addEventListener("scroll", handleScroll)
+    container.addEventListener("scroll", handleScroll)
 
-  return () => {
-    container.removeEventListener("scroll", handleScroll)
-  }
-}, [chatContainerRef.current, hasNextPage, isFetchingNextPage, fetchNextPage])
+    return () => {
+      container.removeEventListener("scroll", handleScroll)
+    }
+  }, [chatContainerRef.current, hasNextPage, isFetchingNextPage, fetchNextPage])
 
-  
+
   const allMessages = React.useMemo(() => {
     return data?.pages.flatMap(page => page.messages) || [];
   }, [data])
 
-  
 
-    function scrollToBottom(instant = false) {
-      if (chatContainerRef.current) {
-        chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight
-      } else if (bottomRef.current) {
-        bottomRef.current.scrollIntoView({ behavior: instant ? "auto" : "smooth" })
-      }
+
+  function scrollToBottom(instant = false) {
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight
+    } else if (bottomRef.current) {
+      bottomRef.current.scrollIntoView({ behavior: instant ? "auto" : "smooth" })
     }
+  }
   useEffect(() => {
-    if (!chatContainerRef.current) return;
+    if (!chatContainerRef.current) return
 
-    const prevLength = prevAllMessagesRef.current.length;
+    const prevLength = prevAllMessagesRef.current.length
     const newLength = allMessages.length;
 
     // Only scroll to bottom if messages increased at the bottom (new messages)
@@ -240,19 +240,19 @@ function MessagesSection() {
   function handleSendMessage() {
     if (!content.trim()) return toast.error("Message cannot be empty")
 
-      const tempId = `temp-${Date.now()}`
-      const tempMessage = {
-        _id: tempId,
-        chatId,
-        content,
-        sender: user,
-        timestamp: new Date().toISOString(),
-        readBy: [],
-        deliveredTo: [],
-        status: "sending",
-      }
+    const tempId = `temp-${Date.now()}`
+    const tempMessage = {
+      _id: tempId,
+      chatId,
+      content,
+      sender: user,
+      timestamp: new Date().toISOString(),
+      readBy: [],
+      deliveredTo: [],
+      status: "sending",
+    }
 
-      queryClient.setQueryData(["messages", chatId], (oldData) => {
+    queryClient.setQueryData(["messages", chatId], (oldData) => {
       if (!oldData) return { pages: [{ messages: [tempMessage] }] }
       const updated = {
         ...oldData,
@@ -385,7 +385,7 @@ function MessagesSection() {
         }
         return updated
       })
-       
+
     }
 
     socket.on("messageDelivered", handleMessageDelivered)
@@ -404,8 +404,8 @@ function MessagesSection() {
     const messageText = message.content || ""
 
     const circularIcon = message.sender?.profilePic?.includes("cloudinary.com")
-    ? message.sender?.profilePic.replace("/upload/", "/upload/w_100,h_100,c_fill,r_max/")
-    : "/whatsapp.png"
+      ? message.sender?.profilePic.replace("/upload/", "/upload/w_100,h_100,c_fill,r_max/")
+      : "/whatsapp.png"
 
     const notification = new Notification(senderName, {
       body: messageText,
@@ -435,8 +435,8 @@ function MessagesSection() {
     <div className="messagesection">
       <div className="messageheader">
         <span className="messageheaderrecipient">
-        <img src={recipientData.profilePic} alt="profilepicture" className='profilepicture' />
-          <span style={{display: 'flex', flexDirection: 'column'}}>
+          <img src={recipientData.profilePic} alt="profilepicture" className='profilepicture' />
+          <span style={{ display: 'flex', flexDirection: 'column' }}>
             <span>
               {recipientData?.name + ' ' || 'Unknown User'}
             </span>
@@ -477,7 +477,7 @@ function MessagesSection() {
         <span className="messagesoptionsbtn" onClick={() => {
           dispatch(setSelectedChat(null))
           setOptions(false)
-          }
+        }
         }
         >Close chat </span>
       </div>
@@ -486,29 +486,29 @@ function MessagesSection() {
           <RelativeLoader />
         ) : allMessages.length > 0 ? (
           Object.keys(groupedMessages).map((dateKey) => (
-            <div key={dateKey} style={{display: 'flex', flexDirection: 'column'}}>
+            <div key={dateKey} style={{ display: 'flex', flexDirection: 'column' }}>
               <div className="date-separator">
                 <span>{formatDate(groupedMessages[dateKey][0].timestamp)}</span>
               </div>
               {groupedMessages[dateKey].map((msg, index) => {
                 return (
-                <div
-                  key={index}
-                  className={`messagebubble ${
-                    msg.sender._id === loggedInUser ? "sent" : "received"
-                  }`}
+                  <div
+                    key={index}
+                    className={`messagebubble ${msg.sender._id === loggedInUser ? "sent" : "received"
+                      }`}
                   >
-                  <div className="message-content">{msg.content}</div>
-                  <div className="message-time">{formatTime(msg.timestamp)} {' '}
+                    <div className="message-content">{msg.content}</div>
+                    <div className="message-time">{formatTime(msg.timestamp)} {' '}
                       {msg.status === "sending" && msg.sender._id === user._id ? <FaClock className="clock-icon" /> : ''}
                       {msg.status === "sent" && msg.sender._id === user._id ? <img className='messagestatus' src="/sent.png" alt="" /> : ''}
                       {msg.status === "delivered" && msg.sender._id === user._id ? <img className='messagestatus' src="/delivered.png" alt="" /> : ''}
                       {msg.status === "read" && msg.sender._id === user._id ? <img className='messagestatus' src="/read.png" alt="" /> : ''}
                       {msg.status === "failed" && msg.sender._id === user._id ? <FaExclamationCircle className="error-icon" /> : ''}
-                    
+
                     </div>
-                </div>
-              )})}
+                  </div>
+                )
+              })}
             </div>
           ))
         ) : (
@@ -519,7 +519,7 @@ function MessagesSection() {
         <div ref={bottomRef} />
       </div>
       {showScrollButton && (
-        <button 
+        <button
           className="tobottombtn"
           onClick={() => scrollToBottom(true)}
         >
@@ -527,7 +527,7 @@ function MessagesSection() {
         </button>
       )}
       <div className="messageinput">
-        <input type="text" placeholder='Type a message...' className='messageinput2' value={content} ref={inputRef} onChange={(e)=> setContent(e.target.value)} onKeyDown={(e) => e.key === 'Enter' && handleSendMessage()} />
+        <input type="text" placeholder='Type a message...' className='messageinput2' value={content} ref={inputRef} onChange={(e) => setContent(e.target.value)} onKeyDown={(e) => e.key === 'Enter' && handleSendMessage()} />
         <button className='sendmessgebtn' onClick={handleSendMessage}><img src={message} alt="" className="sendmessge" /></button>
       </div>
     </div>

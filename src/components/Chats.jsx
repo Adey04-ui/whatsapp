@@ -48,22 +48,22 @@ function Chats({ showChats, setShowChats, setShowusers }) {
   React.useEffect(() => {
     // Listen for "messagesRead" socket event
     socket.on("messagesRead", ({ chatId, userId }) => {
-    if (userId === user._id) {
-      queryClient.setQueryData(["unreadCounts"], (oldData) => {
-        if (!oldData) return oldData
-        return oldData.map((entry) =>
-          entry.chatId === chatId && entry.user === user._id
-            ? { ...entry, count: 0 }
-            : entry
-        )
-      })
-    }
-  })
+      if (userId === user._id) {
+        queryClient.setQueryData(["unreadCounts"], (oldData) => {
+          if (!oldData) return oldData
+          return oldData.map((entry) =>
+            entry.chatId === chatId && entry.user === user._id
+              ? { ...entry, count: 0 }
+              : entry
+          )
+        })
+      }
+    })
 
-  return () => {
-    socket.off("messagesRead")
-  }
-}, [queryClient])
+    return () => {
+      socket.off("messagesRead")
+    }
+  }, [queryClient])
 
   const getUnreadCount = (chatId) => {
     if (!unreadCounts) return 0
@@ -71,17 +71,16 @@ function Chats({ showChats, setShowChats, setShowusers }) {
     return entry ? entry.count : 0
   }
 
-
   const filteredChats = (chats || []).filter((chat) => {
-  const otherUsers = chat.users.filter((u) => u._id !== user._id)
+    const otherUsers = chat.users.filter((u) => u._id !== user._id)
 
-  const names = otherUsers.map((u) => u.name).join(", ").toLowerCase()
-  const emails = otherUsers.map((u) => u.email).join(", ").toLowerCase()
+    const names = otherUsers.map((u) => u.name).join(", ").toLowerCase()
+    const emails = otherUsers.map((u) => u.email).join(", ").toLowerCase()
 
-  const searchTerm = search.toLowerCase()
+    const searchTerm = search.toLowerCase()
 
-  return names.includes(searchTerm) || emails.includes(searchTerm)
-})
+    return names.includes(searchTerm) || emails.includes(searchTerm)
+  })
 
   const sortedChats = [...filteredChats].sort((a, b) => {
     const aTime = new Date(a.latestMessageAt || 0)
