@@ -183,7 +183,7 @@ function MessagesSection() {
 
   useEffect(() => {
     const handleMessageReceived = (message) => {
-      const incomingChatId =
+      const incomingChatId = 
         message?.chatId?._id || message?.chat?._id || message?.chatId
       const isCurrentChat = incomingChatId === chatId
 
@@ -290,7 +290,6 @@ function MessagesSection() {
 
     sendMessage({ chatId, content, recipient }, {
       onSuccess: (newMessage) => {
-        queryClient.invalidateQueries(["getChats"], { refetchType: "active" })
         queryClient.setQueryData(["messages", chatId], (oldData) => {
           if (!oldData) return oldData
           return {
