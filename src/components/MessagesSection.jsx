@@ -290,18 +290,18 @@ function MessagesSection() {
 
     sendMessage({ chatId, content, recipient }, {
       onSuccess: (newMessage) => {
-        queryClient.setQueryData(["messages", chatId], (oldData) => {
-          if (!oldData) return oldData
-          return {
-            ...oldData,
-            pages: oldData.pages.map((page) => ({
-              ...page,
-              messages: page.messages.map((msg) =>
-                msg._id === tempId ? { ...newMessage, status: "sent" } : msg
-              ),
-            })),
-          }
-        })
+        // queryClient.setQueryData(["messages", chatId], (oldData) => {
+        //   if (!oldData) return oldData
+        //   return {
+        //     ...oldData,
+        //     pages: oldData.pages.map((page) => ({
+        //       ...page,
+        //       messages: page.messages.map((msg) =>
+        //         msg._id === tempId ? { ...newMessage, status: "sent" } : msg
+        //       ),
+        //     })),
+        //   }
+        // })
 
         socket.emit("newMessage", newMessage)
       },
